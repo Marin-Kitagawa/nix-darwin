@@ -1,0 +1,50 @@
+{
+    "AstroNvim": {
+        "branch": "main",
+        "description": null,
+        "homepage": null,
+        "owner": "Marin-Kitagawa",
+        "repo": "AstroNvim",
+        "rev": "2a0bdb84b6a74add8c1889f958f37a37f1d1d3f1",
+        "sha256": "1b6lkaw8v8vrb0c6nx4dnpd475yw3xxvc8dfd13s17zb0mgka2f9",
+        "type": "tarball",
+        "url": "https://github.com/Marin-Kitagawa/AstroNvim/archive/2a0bdb84b6a74add8c1889f958f37a37f1d1d3f1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a82ccc39b39b621151d6732718e3e250109076fa",
+        "sha256": "1664s8ffaa3hcvz4d4hwca2l6xl25j8dvzxwmd2ckcskcncq1zc1",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/a82ccc39b39b621151d6732718e3e250109076fa.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zshCalcPlugin": {
+        "branch": "master",
+        "description": "zsh calculator - with support for basic math",
+        "homepage": "https://lukasmestan.com/simple-zsh-calculator/",
+        "owner": "arzzen",
+        "repo": "calc.plugin.zsh",
+        "rev": "5b4c85977b693c15eb052cde6b5cef0d6610f567",
+        "sha256": "1waq1s1dxz6wbm2qmld1ac1rr5hgnwzads3zclr23jmjp0vl309p",
+        "type": "tarball",
+        "url": "https://github.com/arzzen/calc.plugin.zsh/archive/5b4c85977b693c15eb052cde6b5cef0d6610f567.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zshShiftSelect": {
+        "branch": "master",
+        "description": "Select text in Zsh command line using Shift, as in many text editors and GUI programs",
+        "homepage": "",
+        "owner": "jirutka",
+        "repo": "zsh-shift-select",
+        "rev": "da460999b7d31aef0f0a82a3e749d70edf6f2ef9",
+        "sha256": "1xzyr3jbmfn0f5agackv83j2isfqdii09li8v7nkyd90qmlkqh3s",
+        "type": "tarball",
+        "url": "https://github.com/jirutka/zsh-shift-select/archive/da460999b7d31aef0f0a82a3e749d70edf6f2ef9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
