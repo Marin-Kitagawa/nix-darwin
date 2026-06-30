@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "Marin-Kitagawa",
         "repo": "AstroNvim",
-        "rev": "2a0bdb84b6a74add8c1889f958f37a37f1d1d3f1",
-        "sha256": "1b6lkaw8v8vrb0c6nx4dnpd475yw3xxvc8dfd13s17zb0mgka2f9",
+        "rev": "1c7eb99da1f174c455492d5fd28c399f14d849a2",
+        "sha256": "0q04kz734cf26fahqss299hgyg57im3f9ir0lwdp1kcgfghlaxb3",
         "type": "tarball",
-        "url": "https://github.com/Marin-Kitagawa/AstroNvim/archive/2a0bdb84b6a74add8c1889f958f37a37f1d1d3f1.tar.gz",
+        "url": "https://github.com/Marin-Kitagawa/AstroNvim/archive/1c7eb99da1f174c455492d5fd28c399f14d849a2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
