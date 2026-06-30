@@ -21,6 +21,18 @@
       #        gpg.ssh.allowedSignersFile = "./allowed_signers";
       # macOS keychain credential helper (upstream used libsecret on Linux).
       credential.helper = "osxkeychain";
+      # Use the GitHub CLI as the credential helper for github.com / gists.
+      # The leading "" clears inherited helpers so gh is authoritative (this is
+      # what `gh auth setup-git` would write, but done declaratively since the
+      # generated ~/.config/git/config is a read-only Nix symlink).
+      credential."https://github.com".helper = [
+        ""
+        "${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      credential."https://gist.github.com".helper = [
+        ""
+        "${pkgs.gh}/bin/gh auth git-credential"
+      ];
 
       #git-delta configuration
       core = {pager = "delta";};
