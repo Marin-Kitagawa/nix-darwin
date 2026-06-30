@@ -54,12 +54,10 @@
     taps = [ ];
     brews = [ ];
     casks = [
-      "brave-browser"
-      "vlc"
-      "qbittorrent"
-      "obsidian"
-      "onlyoffice"
       "dbeaver-community"
+      # WezTerm is installed as a cask because the nix-built .app doesn't launch
+      # reliably on macOS (symlinked, unsigned); it reads ~/.config/wezterm/wezterm.lua.
+      "wezterm"
     ];
   };
 

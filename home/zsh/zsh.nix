@@ -15,9 +15,10 @@ in {
         "urbainvaes/fzf-marks"
         "Tarrasch/zsh-functional"
         "zdharma-continuum/history-search-multi-word"
-        "z-shell/F-Sy-H"
-        "zsh-users/zsh-autosuggestions"
-        "zsh-users/zsh-syntax-highlighting"
+        "z-shell/F-Sy-H" # syntax highlighting (kept); dropped the duplicate
+        # zsh-users/zsh-syntax-highlighting and zsh-users/zsh-autosuggestions —
+        # autosuggestions are provided by home-manager (autosuggestion.enable),
+        # and two highlighters caused redraw glitches + slow startup.
         "chisui/zsh-nix-shell"
         "wfxr/forgit"
         #          "jirutka/zsh-shift-select"
