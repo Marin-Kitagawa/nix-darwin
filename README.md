@@ -35,6 +35,20 @@ sudo darwin-rebuild switch --flake ~/.config/nix-darwin#a
 (The flake attribute `a` matches the host name. Under `sudo`, use the absolute
 path `/Users/<you>/.config/nix-darwin` since `~` resolves to `/var/root`.)
 
+### Helper script: `nixd`
+
+Instead of the long commands above, use the bundled [`bin/nixd`](bin/nixd)
+wrapper — `nixd switch`, `nixd upgrade`, `nixd gc`, `nixd rollback`, etc. It
+targets this flake automatically. See **[docs/nixd.md](docs/nixd.md)** for the
+full reference, workflows, and an old-vs-new command comparison.
+
+```sh
+nixd switch      # sudo darwin-rebuild switch --flake ~/.config/nix-darwin#a
+nixd upgrade     # update flake.lock, then switch
+nixd gc          # collect garbage (generations older than 30 days)
+nixd help        # list all commands
+```
+
 ## Bootstrap (fresh machine)
 
 1. Install Nix with the official multi-user installer and enable flakes
