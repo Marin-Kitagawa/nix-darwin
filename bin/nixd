@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# nixd — convenience wrapper for common nix-darwin operations.
+# Usage: nixd <command> [args]   (run `nixd help` for the list)
+#
+# Override defaults with env vars:
+#   NIXD_FLAKE  (default: ~/.config/nix-darwin)
+#   NIXD_HOST   (default: a)
+set -euo pipefail
+
+FLAKE="${NIXD_FLAKE:-$HOME/.config/nix-darwin}"
+HOST="${NIXD_HOST:-a}"
+SYS_PROFILE="/nix/var/nix/profiles/system"
+
+# Resolve darwin-rebuild's absolute path so it survives `sudo` (which strips PATH).
+DR="$(command -v darwin-rebuild 2>/dev/null || echo /run/current-system/sw/bin/darwin-rebuild)"
+
+info() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
+
+usage() {
+  cat <<EOF
+nixd — nix-darwin helper   (flake: $FLAKE#$HOST)
+
+System:
+  switch, s          Build & activate the configuration (sudo)
+  build,  b          Build without activating (no sudo — safe test)
+  check              Build & run the configuration's checks
+  rollback           Roll back to the previous generation (sudo)
+  generations, gen   List system generations
+
+Updating:
+  update, up         Update flake.lock (nix flake update)
+  upgrade, U         Update flake.lock, then switch
+  info               Show flake metadata / input revisions
+
+Cleanup:
+  gc [DAYS]          Delete generations older than DAYS (default 30) + collect garbage (sudo)
+  optimise           Deduplicate the store (hard-link identical files)
+  repair             Verify & repair the store (sudo)
+
+Misc:
+  fmt                Format all .nix files with alejandra
+  search PKG         Search nixpkgs for PKG
+  edit               Open the config in \$EDITOR
+  path               Print the flake reference
+  help, -h           Show this help
+EOF
+}
+
+cmd="${1:-help}"; shift || true
+case "$cmd" in
+  switch|s)         info "darwin-rebuild switch"; exec sudo "$DR" switch --flake "$FLAKE#$HOST" "$@" ;;
+  build|b)          info "darwin-rebuild build";  exec "$DR" build --flake "$FLAKE#$HOST" "$@" ;;
+  check)            info "darwin-rebuild check";  exec "$DR" check --flake "$FLAKE#$HOST" "$@" ;;
+  rollback)         info "rolling back to previous generation"
+                    sudo nix-env --rollback -p "$SYS_PROFILE"
+                    exec sudo "$DR" activate ;;
+  generations|gen)  exec sudo nix-env -p "$SYS_PROFILE" --list-generations ;;
+
+  update|up)        info "updating flake.lock"; ( cd "$FLAKE" && exec nix flake update ) ;;
+  upgrade|U)        info "updating flake.lock"; ( cd "$FLAKE" && nix flake update )
+                    info "switching"; exec sudo "$DR" switch --flake "$FLAKE#$HOST" ;;
+  info)             exec nix flake metadata "$FLAKE" ;;
+
+  gc)               days="${1:-30}"
+                    info "deleting system generations older than ${days}d (sudo)"
+                    sudo nix-collect-garbage --delete-older-than "${days}d"
+                    info "deleting user generations older than ${days}d"
+                    nix-collect-garbage --delete-older-than "${days}d" || true
+                    info "done" ;;
+  optimise|optimize) info "optimising store (deduplicating)"; exec nix store optimise ;;
+  repair)           info "verifying & repairing store (sudo)"; exec sudo nix-store --repair --verify --check-contents ;;
+
+  fmt)              info "formatting *.nix with alejandra"; ( cd "$FLAKE" && exec nix run nixpkgs#alejandra -- . ) ;;
+  search)           [ "$#" -ge 1 ] || { echo "usage: nixd search PKG" >&2; exit 1; }; exec nix search nixpkgs "$@" ;;
+  edit)             ( cd "$FLAKE" && exec "${EDITOR:-nvim}" . ) ;;
+  path)             echo "$FLAKE#$HOST" ;;
+  help|-h|--help)   usage ;;
+  *)                echo "nixd: unknown command '$cmd'" >&2; echo >&2; usage; exit 1 ;;
+esac

@@ -32,6 +32,11 @@
     EDITOR = "nvim";
   };
 
+  # Put the repo's helper scripts (e.g. `nixd`) on PATH.
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.config/nix-darwin/bin"
+  ];
+
   home.enableNixpkgsReleaseCheck = false;
 
   programs.home-manager.enable = true;

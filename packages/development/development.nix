@@ -2,6 +2,7 @@
   imports = [
     ./build_tools/build_tools.nix
     ./languages/languages.nix
+    ./cloud.nix
     ./containerization.nix
     ./databases.nix
     ./data_serialization.nix
